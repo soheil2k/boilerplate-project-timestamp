@@ -25,11 +25,16 @@ app.get("/api/hello", function (req, res) {
 });
 
 //timestamp api
+app.use("/api/timestamp",(req, res)=>{
+    const time = new Date();
+    res.json({"unix":time.getTime(),"utc":time.toUTCString()})
+})
 app.use("/api/timestamp/:date_string",(req,res)=> {
-    if(req.params.date_string==parseInt(req.params.date_string)){
-        req.params.date_string = parseInt(req.params.date_string)
-    }
-    const time = new Date(req.params.date_string) ; 
+    const theTime = req.params.date_string
+    if(theTime==parseInt(theTime)){
+        theTime = parseInt(theTime) }
+    let time = new Date(theTime)
+    !time.getTime()?res.json({"error" : "Invalid Date" }):
     res.json({"unix":time.getTime(),"utc":time.toUTCString()})
 })
 
