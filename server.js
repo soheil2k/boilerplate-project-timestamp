@@ -29,7 +29,7 @@ app.get("/api/timestamp/", (req, res) => {
   res.json({ unix: Date.now(), utc: Date() });
 });
 app.use("/api/timestamp/:date_string",(req,res)=> {
-    const theTime = req.params.date_string
+    let theTime = req.params.date_string
     if(theTime==parseInt(theTime)){
         theTime = parseInt(theTime) }
     let time = new Date(theTime)
